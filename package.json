@@ -1,26 +1,22 @@
 {
-  "name": "vehicle-builder",
+  "name": "develop",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
   "scripts": {
+    "build": "npx tsc",
+    "start": "npm run build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Michel-Gomes33/Vehicle-Builder.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Michel-Gomes33/Vehicle-Builder/issues"
-  },
-  "homepage": "https://github.com/Michel-Gomes33/Vehicle-Builder#readme",
-  "description": "",
   "dependencies": {
-    "@types/node": "^22.13.10",
-    "inquirer": "^12.5.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "inquirer": "^9.2.19",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.12.7"
   }
 }
