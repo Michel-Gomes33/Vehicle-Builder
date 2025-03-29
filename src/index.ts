@@ -1,98 +1,41 @@
-import inquirer from "inquirer";
-import { Car } from "./Car";
-import { Truck } from "./Truck";
-import { Motorbike } from "./Motorbike";
-import { Vehicle } from "./Vehicle";
+// import classes
+import Truck from "./classes/Truck.js";
+import Car from "./classes/Car.js";
+import Motorbike from "./classes/Motorbike.js";
+import Wheel from "./classes/Wheel.js";
+import Cli from "./classes/Cli.js";
 
-const vehicles: Vehicle[] = [];
+// create an array of vehicles
+const vehicles = [];
 
-async function mainMenu() {
-  const { choice } = await inquirer.prompt([
-    {
-      type: "list",
-      name: "choice",
-      message: "What would you like to do?",
-      choices: ["Create a new vehicle", "Select an existing vehicle", "Exit"]
-    }
-  ]);
+// TODO: uncomment once trucks are implemented
+// const truck1 = new Truck(Cli.generateVin(),"red", "Ford", "F-150", 2021, 5000, 120, [], 10000);
 
-  if (choice === "Create a new vehicle") {
-    await createVehicle();
-  } else if (choice === "Select an existing vehicle") {
-    await selectVehicle();
-  } else {
-    console.log("Goodbye!");
-    process.exit();
-  }
+// will use default wheels
+const car1 = new Car(
+  Cli.generateVin(),
+  'blue',
+  'Toyota',
+  'Camry',
+  2021,
+  3000,
+  130,
+  []
+);
 
-  mainMenu();
-}
+// TODO: uncomment once motorbikes are implemented
+// const motorbike1Wheels = [new Wheel(17, "Michelin"), new Wheel(17, "Michelin")];
+// const motorbike1 = new Motorbike(Cli.generateVin(), "black", "Harley Davidson", "Sportster", 2021, 500, 125, motorbike1Wheels);
 
-async function createVehicle() {
-  const { type } = await inquirer.prompt([
-    {
-      type: "list",
-      name: "type",
-      message: "Choose the type of vehicle:",
-      choices: ["Car", "Truck", "Motorbike"]
-    }
-  ]);
+// push vehicles to array
+// TODO: uncomment once trucks are implemented
+// vehicles.push(truck1);
+vehicles.push(car1);
+// TODO: uncomment once motorbikes are implemented
+// vehicles.push(motorbike1);
 
-  const { make, model, year } = await inquirer.prompt([
-    { type: "input", name: "make", message: "Enter vehicle make:" },
-    { type: "input", name: "model", message: "Enter vehicle model:" },
-    { type: "number", name: "year", message: "Enter vehicle year:" }
-  ]);
+// create a new instance of the Cli class
+const cli = new Cli(vehicles);
 
-  if (type === "Truck") {
-    const { towingCapacity } = await inquirer.prompt([
-      { type: "number", name: "towingCapacity", message: "Enter towing capacity (lbs):" }
-    ]);
-    vehicles.push(new Truck(make, model, year, towingCapacity));
-  } else if (type === "Motorbike") {
-    const { bikeType } = await inquirer.prompt([
-      { type: "input", name: "bikeType", message: "Enter motorbike type (e.g., Cruiser, Sportbike):" }
-    ]);
-    vehicles.push(new Motorbike(make, model, year, bikeType));
-  } else {
-    vehicles.push(new Car(make, model, year));
-  }
-
-  console.log(`${type} created successfully!`);
-}
-
-async function selectVehicle() {
-  if (vehicles.length === 0) {
-    console.log("No vehicles available. Please create one first.");
-    return;
-  }
-
-  const { selectedVehicle } = await inquirer.prompt([
-    {
-      type: "list",
-      name: "selectedVehicle",
-      message: "Select a vehicle:",
-      choices: vehicles.map((v, i) => `${i + 1}: ${v.make} ${v.model}`)
-    }
-  ]);
-
-  const index = parseInt(selectedVehicle.split(":")[0]) - 1;
-  await vehicleActions(vehicles[index]);
-}
-
-async function vehicleActions(vehicle: Vehicle) {
-  const { action } = await inquirer.prompt([
-    {
-      type: "list",
-      name: "action",
-      message: `What do you want to do with ${vehicle.make} ${vehicle.model}?`,
-      choices: ["Perform Action", "Go Back"]
-    }
-  ]);
-
-  if (action === "Perform Action") {
-    vehicle.performAction();
-  }
-}
-
-mainMenu();
+// start the cli
+cli.startCli();
