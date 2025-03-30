@@ -179,8 +179,8 @@ class Cli {
           parseInt(answers.year),
           parseInt(answers.weight),
           parseInt(answers.topSpeed),
-          parseInt(answers.towingCapacity),
-          []
+          paresetInt(abswers.)
+          parseInt(answers.towingCapacity)
         );
         this.vehicles.push(truck);
         this.selectedVehicleVin = truck.vin;
