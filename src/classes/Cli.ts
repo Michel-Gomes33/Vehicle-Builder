@@ -373,6 +373,7 @@ class Cli {
           }
           //ToDo : ask which vehicle they would like to tow.
          this.findVehicleToTow(currentVehicle);
+         
         } else if (answers.action === "Do a wheelie (Motorbikes only)") {
           if (currentVehicle instanceof Motorbike === false) {
             console.log("the current vehicle isn't a Motorbike");
